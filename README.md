@@ -4,6 +4,8 @@ Personal study notes from an ETH robotics / robot-learning course. The notes run
 
 These are working notes, written while watching the lectures. Wording is informal, and the figures are screenshots pasted from the slides. The repo is meant to stay private.
 
+Course exercises live in a separate repository: [Z30G0D/ethz-robotics-ml-2026](https://github.com/Z30G0D/ethz-robotics-ml-2026).
+
 ## What is in here
 
 | Path | What it is |
