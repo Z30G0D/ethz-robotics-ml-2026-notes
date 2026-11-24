@@ -10,7 +10,6 @@ These are working notes, written while watching the lectures. Wording is informa
 | --- | --- |
 | `Notes from Lecture 3.md` … `Notes from Lecture 7.md` | One file per lecture |
 | `pictures/` | Slide screenshots the notes embed (Obsidian-style `![[Pasted image ….png]]` links) |
-| `exercises/exercise2.md` | Placeholder for exercise 2; the file is empty |
 
 The text itself is small. Almost all of the size is the images in `pictures/`.
 
