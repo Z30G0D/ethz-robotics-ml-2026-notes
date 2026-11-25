@@ -80,3 +80,22 @@ Tips on training a VLA for generalist policies:
 			* Padding with zeros is a waste, predict for *all* embodiments regardless of their control frequency (this is important because sometimes we don't need prediction in a very high rate, depends on the robot).
 				* Since the output is the same size it takes into account the control frequency as constant, and not changing (like crossformer style). 
 				* This is wrong since every embodiment has its own frequency control.
+		* Q: How does the model know at test time for which embodiment it should output?
+		* A: In crossformer style: User specifies head in prompt, in Pi0 style- model infers embodiment from obs, proprio and task(no explicit head selection, just from the input)
+		
+	* Current VLA recipe
+		* Next token predo![[Pasted image 20261125154120.png]]
+		* VLM backbone trained on next token prediction: FAST robot actions + web data 
+		* Action expert decides about the continious actions, it implements a stop gradient so that it will be able to read from the VLM but cannot update it.
+* Scalable Evaluations of robot policies:
+	* Evaluating polciies is expensive!
+		* People bump into camera, gripper get stuck, real eval is slow and tedious
+		* Hardware failures - changing engine can cause issue with training data
+	* Sim evals democratize research
+	* Sim evals makes it more reproduciable
+	* SIMPLER framework helps for evaluating the policy in the real world
+* What makes a good simluation
+	* Mitigate the control gap between simulated and real world environment to ensure that the policies executed will yield the same results end effector in real world
+		* You can do it using system ID (accurate control dynamics per system/environment) - elaboration in underacuated course, - in a nutshell the low level controller in the simulation and in the real world should produce the same output (same output of model causes same output in real life)
+		* Minimze visual distribution shift (greenscreen, texture matching etc..)
+		* 
