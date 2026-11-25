@@ -44,5 +44,39 @@ Cross embodiment learning:
 
 "One policy" article Cross embodied transformer
 * 5HZ-50HZ control (output) can change dramatically between robots and you need to create a model that works on both of them.
-* Read the paper:
-	* A careful examination of large behavior models for multitask dexterous manipulations
+* Does multitask pretraining help post training?
+	* ![[Pasted image 20261124133219.png|465]]
+	* Read: A careful examination of large behavior models for multitask dexterous manipulations
+	* Conclusion: It does help, post training for a single task is more efficient (mostly helpful for low amount of data for your specific task)
+		* How you normalize your data influence alot about the actual transfer of knowledge to your robot.
+		*
+	* Do internet scale priors like VLMs transfer to control?
+		* Yes, You could transfer learn VLM to VLA (finetuning on actions instead of text output)
+Tips on training a VLA for generalist policies:
+* ![[Pasted image 20261124141345.png|374]]
+* Reach 95% on token accuracy
+	* Action token accuracy is compute on teacher forcing and does not represent the actual performence on actual rollouts
+	* If we hand picked the exact action binning correctly
+		* L1 and L2 are also good ofc
+	* Batching heterogenous data
+		* Several embodiments with several different cameras (different setups)
+			* Simple Solution - pad the missing cameras or inputs
+				* Disadvantage - compute wasted on empty data
+			* Sequence packing - technique taiolred to handle variable length transformers
+				* Concatenate everything to a single vector
+					* Maintain cunulative sequence length variable
+					* ![[Pasted image 20261125105856.png]]
+					* ![[Pasted image 20261125110005.png|404]]
+				* Block diagonal att. so different samples won't attend to other samples, need to maintain this per block
+	* Dataloading:
+		* Tw main methods:![[Pasted image 20261125110321.png]]
+		* The issue with sequential read and shuffle (first method) is that if the buffer is small (compare to the trajectory length) the sampels are very correlated.
+			* The solution they used in OCTO architecture is to shuffle and interleave frames (so every trajectory became smaller) before decoding and in that way they could increase the batch size dramatically and avoid correlated batch.
+	* Cross embodiment heads
+		* Two approaches for different heads![[Pasted image 20261125112331.png]]
+		* Disadvantage of crossformer:
+			* need to add a new head for a diffferent embodiment
+		* Disadvantage םf Pi0:
+			* Padding with zeros is a waste, predict for *all* embodiments regardless of their control frequency (this is important because sometimes we don't need prediction in a very high rate, depends on the robot).
+				* Since the output is the same size it takes into account the control frequency as constant, and not changing (like crossformer style). 
+				* This is wrong since every embodiment has its own frequency control.
