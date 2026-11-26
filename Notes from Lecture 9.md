@@ -30,7 +30,7 @@ Most generalizing models work with robotics as multimodal sequence modeling.
 So everything is kind of sequences :)
 
 Architecture of Octo (open source model by course lecturer):
-![[Pasted image 20261123203050.png]]
+![Pasted image 20261123203050](pictures/Pasted%20image%2020261123203050.png)
 
 Octo design decisions:
 * Gripper -  same labeling for all datasets (Some were -1/+1 and some were +1/0 or some contionious labeling)
@@ -40,12 +40,12 @@ How to adapt generlize model to new obs/ action space?
 Adaptable pre-trained representation for finetuning - this really helps to transfer from robot to robot.
 
 Cross embodiment learning:
-* ![[Pasted image 20261123210543.png]]
+* ![Pasted image 20261123210543](pictures/Pasted%20image%2020261123210543.png)
 
 "One policy" article Cross embodied transformer
 * 5HZ-50HZ control (output) can change dramatically between robots and you need to create a model that works on both of them.
 * Does multitask pretraining help post training?
-	* ![[Pasted image 20261124133219.png|465]]
+	* ![Pasted image 20261124133219](pictures/Pasted%20image%2020261124133219.png)
 	* Read: A careful examination of large behavior models for multitask dexterous manipulations
 	* Conclusion: It does help, post training for a single task is more efficient (mostly helpful for low amount of data for your specific task)
 		* How you normalize your data influence alot about the actual transfer of knowledge to your robot.
@@ -53,7 +53,7 @@ Cross embodiment learning:
 	* Do internet scale priors like VLMs transfer to control?
 		* Yes, You could transfer learn VLM to VLA (finetuning on actions instead of text output)
 Tips on training a VLA for generalist policies:
-* ![[Pasted image 20261124141345.png|374]]
+* ![Pasted image 20261124141345](pictures/Pasted%20image%2020261124141345.png)
 * Reach 95% on token accuracy
 	* Action token accuracy is compute on teacher forcing and does not represent the actual performence on actual rollouts
 	* If we hand picked the exact action binning correctly
@@ -65,15 +65,15 @@ Tips on training a VLA for generalist policies:
 			* Sequence packing - technique taiolred to handle variable length transformers
 				* Concatenate everything to a single vector
 					* Maintain cunulative sequence length variable
-					* ![[Pasted image 20261125105856.png]]
-					* ![[Pasted image 20261125110005.png|404]]
+					* ![Pasted image 20261125105856](pictures/Pasted%20image%2020261125105856.png)
+					* ![Pasted image 20261125110005](pictures/Pasted%20image%2020261125110005.png)
 				* Block diagonal att. so different samples won't attend to other samples, need to maintain this per block
 	* Dataloading:
-		* Tw main methods:![[Pasted image 20261125110321.png]]
+		* Tw main methods:![Pasted image 20261125110321](pictures/Pasted%20image%2020261125110321.png)
 		* The issue with sequential read and shuffle (first method) is that if the buffer is small (compare to the trajectory length) the sampels are very correlated.
 			* The solution they used in OCTO architecture is to shuffle and interleave frames (so every trajectory became smaller) before decoding and in that way they could increase the batch size dramatically and avoid correlated batch.
 	* Cross embodiment heads
-		* Two approaches for different heads![[Pasted image 20261125112331.png]]
+		* Two approaches for different heads![Pasted image 20261125112331](pictures/Pasted%20image%2020261125112331.png)
 		* Disadvantage of crossformer:
 			* need to add a new head for a diffferent embodiment
 		* Disadvantage םf Pi0:
@@ -84,7 +84,7 @@ Tips on training a VLA for generalist policies:
 		* A: In crossformer style: User specifies head in prompt, in Pi0 style- model infers embodiment from obs, proprio and task(no explicit head selection, just from the input)
 		
 	* Current VLA recipe
-		* Next token predo![[Pasted image 20261125154120.png]]
+		* Next token predo![Pasted image 20261125154120](pictures/Pasted%20image%2020261125154120.png)
 		* VLM backbone trained on next token prediction: FAST robot actions + web data 
 		* Action expert decides about the continious actions, it implements a stop gradient so that it will be able to read from the VLM but cannot update it.
 * Scalable Evaluations of robot policies:

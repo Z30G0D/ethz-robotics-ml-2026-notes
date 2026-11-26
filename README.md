@@ -1,6 +1,6 @@
 # ETH robotics lecture notes
 
-Personal study notes from an ETH robotics / robot-learning course. The notes run from lecture 3 through lecture 9 and follow one thread: how a robot goes from copying an expert, to learning a value or a policy, to generating actions, to vision-language-action models, and then to world models and generalist policies.
+Personal study notes from an ETH robotics / robot-learning course. The notes run from lecture 3 through lecture 10 and follow one thread: how a robot goes from copying an expert, to learning a value or a policy, to generating actions, to vision-language-action models, and then to world models, generalist policies, and reasoning.
 
 These are working notes, written while watching the lectures. Wording is informal, and the figures are screenshots pasted from the slides. The repo is meant to stay private.
 
@@ -10,9 +10,8 @@ Course exercises live in a separate repository: [Z30G0D/ethz-robotics-ml-2026](h
 
 | Path | What it is |
 | --- | --- |
-| `Notes from Lecture 3.md` … `Notes from Lecture 9.md` | One file per lecture |
-| `Notes from Lecture 10.md` | Placeholder; the file is empty |
-| `pictures/` | Slide screenshots the notes embed (Obsidian-style `![[Pasted image ….png]]` links) |
+| `Notes from Lecture 3.md` … `Notes from Lecture 10.md` | One file per lecture |
+| `pictures/` | Slide screenshots linked from the lecture notes |
 
 The text itself is small. Almost all of the size is the images in `pictures/`.
 
@@ -32,6 +31,8 @@ The text itself is small. Almost all of the size is the images in `pictures/`.
 
 **Lecture 9 — Generalist robot policies.** Why specialist policies such as ACT and diffusion policies are hard to scale across robots, Octo’s design, cross-embodiment transfer, and the practical VLA training recipe: action-token accuracy, sequence packing, dataloading, and separate heads versus one padded action head. Ends with why real-world evaluation is expensive and what a simulator has to match, including the SIMPLER setup.
 
+**Lecture 10 — Reasoning for robot policies.** Embodied chain-of-thought, reasoning pretraining and dropout, and test-time compute. Covers why reasoning helps, what it costs at inference, and how GRPO-style reinforcement learning produces reasoning without human prompts.
+
 ## How to read the notes
 
-Open the lecture files in [Obsidian](https://obsidian.md), or any Markdown viewer that resolves `![[…]]` image links against `pictures/`. A plain GitHub preview will show the text and will not inline those wiki-style images.
+Open the lecture files in [Obsidian](https://obsidian.md) or on GitHub. Figures are standard Markdown images stored in `pictures/`, so both Obsidian and the GitHub preview show them.
