@@ -40,6 +40,7 @@ This might help to train robots
 Reasoning pretraining and dropout paradigm
 * The reasoning pretraining, two trainingstages
 	* Take the VLM and finetine only for the reasoning (text)
+	* ![Pasted image 20261126113116](pictures/Pasted%20image%2020261126113116.png)
 	* Next, you finetune to robot actions![Pasted image 20261126113128](pictures/Pasted%20image%2020261126113128.png)
 * Reasoning dropout:
 	* Similar to previous one but you dropout the reasoning, the actions are not dependent on the reasoning (you can turn it on or off during the training)
@@ -54,6 +55,7 @@ Reasoning pretraining and dropout paradigm
 ![Pasted image 20261126115826](pictures/Pasted%20image%2020261126115826.png)
 
 * Test time compute scaling
+	* ![Pasted image 20261126120546](pictures/Pasted%20image%2020261126120546.png)
 	* Can we improve if we think longer in test time?![Pasted image 20261126120714](pictures/Pasted%20image%2020261126120714.png)
 	* Best example is the canonical example of alphago:
 	* The take away from the next diagram is that test-time search is essential in surpassing human performence, you need to increase  the model 100Kx to get to 5000 ELO points if you don't use test-time compute![Pasted image 20261126120754](pictures/Pasted%20image%2020261126120754.png)
